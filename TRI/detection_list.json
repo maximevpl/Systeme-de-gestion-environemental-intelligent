@@ -32,7 +32,7 @@
         "effectif": 1,
         "certitude": "54.94%",
         "heure": "2025-04-11 13:58:41",
-        "image": "~/Bureau/Documents/Etude_pratique_3INFO/BDD/Images/fox.jpg"
+        "image": "~/Bureau/Documents/Etude_pratique_3INFO/BDD/Images/bear.jpg"
     },
     {
         "animal": "dog",
@@ -42,11 +42,25 @@
         "image": "~/Bureau/Documents/Etude_pratique_3INFO/BDD/Images/chien-chat-054517.jpg"
     },
     {
+        "animal": "human",
+        "effectif": 1,
+        "certitude": "95.18%",
+        "heure": "2025-03-11 18:29:15",
+        "image": "~/Bureau/Documents/Etude_pratique_3INFO/BDD/Images/human.jpg"
+    },
+    {
         "animal": "cat",
         "effectif": 1,
         "certitude": "92.04%",
         "heure": "2025-04-11 14:29:15",
         "image": "~/Bureau/Documents/Etude_pratique_3INFO/BDD/Images/chien-chat-054517.jpg"
+    },
+    {
+        "animal": "bike",
+        "effectif": 1,
+        "certitude": "95.18%",
+        "heure": "2025-04-13 14:49:15",
+        "image": "~/Bureau/Documents/Etude_pratique_3INFO/BDD/Images/bike.jpg"
     },
     {
         "animal": "dog",

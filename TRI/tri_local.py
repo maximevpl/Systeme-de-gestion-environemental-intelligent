@@ -89,12 +89,14 @@ def tri(source_folder, intervalle_secondes=30):
     ETAPE 1 : Crée une copie du dossier contenant les images et le fichier JSON
     ETAPE 2 : Supprime les images du dossier images principal et nettoie le fichier JSON
     ETAPE 3 : Ouvre la copie du fichier JSON
-    ETAPE 4 : Tri les éléments du fichier en fonction de l'heure
-    ETAPE 5 : Vérifie qu'il n'y a d'entrées du tableau JSON prises dans le même intervalle  
+    ETAPE 4 : Tri les éléments du fichier en fonction de l'heure (ordre croissant)
+    ETAPE 5 : Vérifie qu'il n'y a d'entrées du tableau JSON prises dans le même intervalle ou qui ne sont pas des animaux 
     ETAPE 6 : Met à jour le fichier JSON sans les doublons
         - source_folder : chemin du dossier principal
         - intervalle_secondes : fixé initialement à 30 secondes (pas obligatoire)
     '''
+    animals = ["dog", "cat", "cow", "rat", "fox", "bird"]
+
     source_folder =  os.path.expanduser(source_folder)
 
     destination_folder = os.path.expanduser("~/Bureau/INFO/Etudes Pratiques/BACKUP")
@@ -113,16 +115,16 @@ def tri(source_folder, intervalle_secondes=30):
         data = json.load(f)
 
     # ETAPE 4 - Trier les éléments par heure
-    data_triee = sorted(data, key=lambda x: datetime.strptime(x["heure"], "%Y-%m-%d %H:%M:%S"))
+    sorted_data= sorted(data, key=lambda x: datetime.strptime(x["heure"], "%Y-%m-%d %H:%M:%S"))
 
     resultats = []
     derniere_heure  = None
 
     # ETAPE 5 - Vérification
-    for item in data_triee:
+    for item in sorted_data:
         heure = datetime.strptime(item["heure"], "%Y-%m-%d %H:%M:%S")
         
-        if derniere_heure is None or (heure - derniere_heure).total_seconds() >= intervalle_secondes:
+        if (derniere_heure is None or (heure - derniere_heure).total_seconds() >= intervalle_secondes) and item["animal"] in animals:
             resultats.append(item)
             derniere_heure = heure
         else : 
