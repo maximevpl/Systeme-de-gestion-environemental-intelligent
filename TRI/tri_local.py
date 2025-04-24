@@ -82,7 +82,47 @@ def modifier_chemin_image(destination, fichier_json):
 
     print("Chemins modifiés")
 
+import json
 
+def fusionner_json(fichier_src, fichier_ajout):
+    """
+    Fusionne deux fichiers JSON.
+        - fichier_src: Chemin vers le fichier JSON source
+        - fichier_ajout: Chemin vers le fichier JSON à ajouter
+    """
+    fichier_src = os.path.expanduser(fichier_src)
+    fichier_ajout = os.path.expanduser(fichier_ajout)
+
+    with open(fichier_src, "r", encoding="utf-8") as f1:
+        data_src = json.load(f1)
+
+    with open(fichier_ajout, "r", encoding="utf-8") as f2:
+        data_ajout = json.load(f2)
+
+    fusion = data_src + data_ajout
+
+    with open(fichier_src, "w", encoding="utf-8") as fout:
+        json.dump(fusion, fout, ensure_ascii=False, indent=4)
+
+    print(f"Fusion terminée : {len(fusion)} éléments écrits dans {fichier_src}")
+
+def fusionner_dossier(dossier_src, dossier_ajout):
+    """
+    Ajoute les éléments du dossier ajout dans le dossier src.
+        - dossier_src: Chemin vers le fichier JSON source
+        - dossier_ajout: Chemin vers le fichier JSON à ajouter
+    """
+    dossier_src = os.path.expanduser(dossier_src)
+    dossier_ajout = os.path.expanduser(dossier_ajout)
+
+    for fichier in os.listdir(dossier_ajout):
+        chemin_fichier = os.path.join(dossier_ajout, fichier)
+        if os.path.isfile(chemin_fichier):
+            shutil.copy2(chemin_fichier, dossier_src)
+    print(f"Tous les fichiers de '{dossier_ajout}' ont été copiés vers '{dossier_src}'")
+
+
+    
 
 def tri(source_folder, intervalle_secondes=30):
     '''
@@ -145,6 +185,8 @@ def tri(source_folder, intervalle_secondes=30):
 
 
 if __name__ == '__main__':
-    tri("~/Bureau/INFO/Etudes Pratiques/TRI")
+    #tri("~/Bureau/INFO/Etudes Pratiques/TRI")
     #simplifier_chemins("~/Bureau/INFO/Etudes Pratiques/TRI/detection_list.json")
     #clean_dir("~/Bureau/INFO/Etudes Pratiques/BACKUP")
+    #fusionner_json("~/Bureau/INFO/Etudes Pratiques/TRI/detection_list.json","~/Bureau/INFO/Etudes Pratiques/TRI/detection_list2.json")
+    fusionner_dossier("~/Bureau/INFO/Etudes Pratiques/TRI","~/Bureau/INFO/Etudes Pratiques/Object_detection")
