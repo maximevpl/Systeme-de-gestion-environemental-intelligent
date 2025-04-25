@@ -1,0 +1,30 @@
+[
+    {
+        "animal": "dog",
+        "effectif": 1,
+        "certitude": "95.18%",
+        "heure": "2025-04-14 13:47:29",
+        "image": "Images/chien-chat-054517.jpg"
+    },
+    {
+        "animal": "cat",
+        "effectif": 1,
+        "certitude": "92.04%",
+        "heure": "2025-04-14 13:47:29",
+        "image": "Images/chien-chat-054517.jpg"
+    },
+    {
+        "animal": "dog",
+        "effectif": 6,
+        "certitude": "91.12%",
+        "heure": "2025-04-14 16:34:09",
+        "image": "images/chiens.jpg"
+    },
+    {
+        "animal": "cow",
+        "effectif": 6,
+        "certitude": "74.85%",
+        "heure": "2025-04-14 16:34:24",
+        "image": "images/vaches.jpg"
+    }
+]
