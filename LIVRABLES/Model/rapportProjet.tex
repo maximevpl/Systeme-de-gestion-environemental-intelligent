@@ -20,22 +20,7 @@
 	
 	\maketitle
 	\section*{Résumé}
-	\textbf{Contexte :} Face à l’accélération des bouleversements climatiques, il devient essentiel de suivre l’évolution de la faune et de l’environnement en temps réel. Ce projet s’inscrit dans cette démarche en proposant le développement d’un système de suivi environnemental intelligent, capable de détecter automatiquement la présence d’animaux à l’aide d’une caméra et de les recenser.
-	Ce travail s’inscrit plus précisément dans le cadre de l’étude de la renaturalisation de la Croix Verte, un espace situé à proximité de la station Beaulieu-Université sur la ligne B du métro de Rennes. Cette zone, impactée par les récents aménagements urbains, constitue un terrain d’observation privilégié pour évaluer les effets de la renaturation sur la biodiversité locale.\\
-	\\
-	\textbf{Solution :} Pour répondre aux besoins d’un suivi environnemental localisé et en temps réel, nous avons mis en place une solution embarquée reposant sur un Raspberry Pi 3 couplé à une caméra Pi. Ce dispositif léger et autonome permet de capturer des images sur le terrain, qui sont ensuite analysées pour détecter la présence d’animaux. Le traitement initial est réalisé en périphérie, dans une logique de Fog Computing, afin de réduire la latence et limiter les transferts de données. Les résultats sont ensuite transmis à une plateforme serverless basée sur FaaSd, qui assure le stockage, l’analyse approfondie et l’archivage des données de manière flexible et scalable.
-	\\
-	\\
-	\textbf{Résultat :}
-	\\
-	\\
-	\\
-	\\
-	\\
-	\\
-	\\
-	\\
-	\\
+	Le changement climatique accéléré et les activités humaines imposent un suivi plus précis de la faune et de l'environnement. Ce projet vise à développer un système de suivi intelligent capable de détecter automatiquement la présence d'animaux à l'aide d'une caméra. Dans cette étude, nous avons conçu une solution embarquée reposant sur un Raspberry Pi 3 et une caméra Pi, capable de capturer des images sur le terrain. Le traitement des données est effectué localement (Fog Computing) pour minimiser la latence avant d'être envoyé à une plateforme serverless basée sur FaaSd pour un stockage et une analyse plus approfondis.
 	
 	\tableofcontents
 	
@@ -43,27 +28,69 @@
 	Nous souhaitons adresser nos sincères remerciements à notre encadrant, M. Nikolaos Parlavantzas, pour son accompagnement, son engagement constant et la qualité de ses conseils tout au long de l’année.
 	
 	\section{Introduction}
+	Dans un contexte de bouleversements climatiques accélérés, le besoin de suivre en temps réel l’évolution de la faune et de l’environnement devient essentiel. En parallèle, les avancées technologiques en matière de capteurs connectés, d'intelligence artificielle et de traitement distribué offrent de nouvelles perspectives pour observer la nature de manière fine et automatisée.\\
+	Dans ce contexte, nous avons développé un système de suivi environnemental intelligent, capable de détecter automatiquement la présence d’animaux à l’aide d’une caméra embarquée. Ce projet s’inscrit au sein de l'étude pratique des 4INFO nommé Mycelium qui vise a étudier la renaturalisation de la Croix Verte, un espace vert situé à proximité de la station Beaulieu-Université sur la ligne B du métro de Rennes. Cette zone, récemment impactée par des aménagements urbains, constitue un terrain d’observation privilégié pour évaluer les effets de la renaturation sur la biodiversité locale.
 
 	\section{Cahier des charges}
-	\subsection{Besoin}
 	\subsection{Objectifs}
+	L’objectif de cette étude pratique est de développer une application d’analyse vidéo basée sur l’intelligence artificielle et de l’intégrer au sein du système Mycélium. Cette application devra traiter un flux vidéo en temps réel, analyser son contenu à l’aide d’algorithmes d’IA, stocker des données historiques et générer des alertes en fonction des éléments détectés. Elle sera conçue sous la forme d’un ensemble de fonctions FaaS réparties entre les objets connectés, la couche fog et le cloud. Le développement s’appuiera sur un prototype initial réalisé par un groupe d’étudiants de l’INSA, qui permettait de recenser les animaux présents sur le campus. Ce prototype reposait sur un Raspberry Pi équipé d’une caméra et sur un serveur exécutant un modèle de classification d’images pré-entraîné.
+	\subsection{Fonctionnalités attendues}
+	\begin{enumerate}
+	\item Détection de mouvement via flux vidéo localisé sur Raspberry Pi.
+	\item Analyse d’images pour identifier les animaux détectés.
+	\item Tri et filtrage des données pour éviter les doublons ou mauvaises détections.
+	\item Transfert des données vers le serveur distant.
+	\item Traitement et reclassement des données avec un modèle amélioré.
+	\item Stockage des données dans une base de données interrogeable.
+	\item Système d’alerte (notifications Discord lors de la mise à jour de la base).
+	\item Intégration dans le cluster Mycélium.
+	\end{enumerate}
+	
 	\section{État de l'art}
+	Dans le cadre de ce projet, plusieurs initiatives existantes ont été étudiées afin de comprendre les approches actuelles en matière de suivi automatisé de la biodiversité par l'intelligence artificielle.
+	
+	\subsection{DeepFaune}
+	DeepFaune est un projet français initié en 2022 par des chercheurs du CNRS (Institut National d’Écologie et d’Environnement - INEE). Il s’appuie sur des pièges photographiques équipés de capteurs de mouvement pour capturer automatiquement des images d’animaux dans leur habitat naturel. Ces images sont ensuite traitées par des algorithmes d’intelligence artificielle permettant une identification rapide et fiable des espèces. Cette technologie vise à faciliter et à accélérer le travail des chercheurs en réduisant considérablement le temps consacré à l’analyse manuelle. Toutefois, elle nécessite encore une récupération physique régulière des données sur les pièges photographiques, ce qui peut représenter une contrainte sur le terrain.
+	\subsection{Wildlife Insights}
+	Wildlife Insights est une plateforme internationale collaborative lancée en 2019 avec le soutien d'organisations majeures telles que Google et le WWF. Son objectif est de centraliser et d’analyser des millions de photos capturées par des pièges photographiques à travers le monde, en s’appuyant sur des algorithmes avancés de reconnaissance d’images. Cette initiative facilite les comparaisons interrégionales et appuie les politiques de conservation en offrant une base de données mondiale sur la biodiversité accessible à l’ensemble de la communauté scientifique et environnementale. Toutefois, le système ne permet pas la récupération des données à distance, ce qui impose une collecte manuelle sur le terrain.
+	\subsection{Mycélium 2.0}
+	Mycélium 2.0 est un projet réalisé en 2022 par des étudiants de l’INSA Rennes, en partenariat avec le laboratoire Géosciences Rennes, dans le cadre du programme TERRA FORMA du CNRS. Il avait pour objectif d’étudier la renaturalisation de la Croix Verte, un espace récemment affecté par des aménagements urbains. Le projet se divisait en deux volets : le premier portait sur l’analyse des évolutions climatiques grâce à des capteurs environnementaux, tandis que le second visait à détecter en temps réel la présence d’un renard à l’aide d’une caméra. Notre projet s’inscrit dans la continuité de Mycélium 2.0, avec pour ambition de l'améliorer significativement en élargissant la détection à un plus grand nombre d'animaux et en optimisant le traitement en local grâce au fog computing.
+
 	\section{Architecture}
 	\subsection{Outils}
+	Pour répondre à nos objectifs et à l’architecture choisie, nous avons utilisé divers outils :
+	\begin{enumerate}
+			
+	\item \textbf{Raspberry Pi 3B et Raspberry Pi Caméra Module 2 :} Le système repose sur un Raspberry Pi modèle 3B couplé au Raspberry Pi Caméra Module 2, permettant de capturer des images en haute définition. Ce matériel est idéal pour le traitement local des données et l’analyse des vidéos, tout en étant peu coûteux et facilement déployable.
+	
+	\item \textbf{FaaSd :} Afin d’implémenter le modèle Function as a Service (FaaS), nous avons opté pour FaaSd, une version optimisée d’OpenFaaS. Cette solution est plus rapide et facile à gérer, car elle fonctionne sur un seul hôte avec des exigences minimales. OpenFaaS, en tant que plateforme de fonctions serverless, permet aux développeur·euses d’exécuter du code en réponse à des événements, sans se soucier de la gestion de l’infrastructure sous-jacente.
+	
+	\item \textbf{SQLite :} Le système de gestion de base de données SQLite a été choisi pour sa simplicité et son efficacité. Contrairement à InfluxDB, qui est orienté vers les séries temporelles, SQLite offre une solution légère, idéale pour un projet localisé et embarqué. Il permet de gérer les données relatives aux animaux détectés, aux photos et aux événements de manière optimale, tout en étant facile à utiliser avec Python grâce à des bibliothèques dédiées.
+	
+	\item \textbf{YOLO :} Pour l’analyse des images, nous avons intégré YOLO (You Only Look Once), un modèle de détection d’objets en temps réel. YOLO permet de classifier et localiser les animaux présents dans les images capturées par le système de caméras, offrant ainsi une détection rapide et précise.
+	
+	\item \textbf{NATS :} NATS nous permet d’envoyer des données sur des topics spécifiques, qui peuvent ensuite être récupérées par les différentes fonctions abonnées à ces topics. Cela facilite la communication entre les différentes parties du système, notamment entre le Raspberry Pi et les fonctions cloud.
+	
+	\item \textbf{Docker :} Nous avons utilisé Docker pour l’hébergement des fonctions. Grâce à Docker, nous avons pu regrouper nos fonctions dans des containers qui peuvent être facilement déployés sur n’importe quelle infrastructure FaaS. Cela simplifie le déploiement sur des périphériques tiers et assure une gestion fluide des fonctions.
+	
+	\end{enumerate}	
+	
+	Enfin, tout ce travail se déroule dans le Fog Computing, qui agit comme un Cloud local. Le traitement est effectué sur place, à proximité des dispositifs de détection, et les résultats sont ensuite envoyés vers le Cloud, où les informations sont centralisées et mises à la disposition des utilisateurs et utilisatrices.
+
 	\subsection{Structure}
+	
 	\section{Fonctionnalités réalisées}
+	
 	\section{Difficultés rencontrées}
+	
 	\section{Résultats}
+	
 	\section{Conclusion}
+	
 	\section{Glossaire}
+	
 	\section{Références}
 	
-	
-
-
-
-
-
 
 \end{document}
 
