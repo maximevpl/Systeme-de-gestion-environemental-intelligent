@@ -50,7 +50,3 @@ def tri(fichier_json, intervalle_secondes=30):
 
 
 
-
-if __name__ == '__main__':
-    # tri("/home/inuss/Bureau/INFO/Etudes Pratiques/tri/detection_list2.json", intervalle_secondes=30)
-    tri("~/Bureau/INFO/Etudes Pratiques/tri/BACKUP/detection_list2.json")
