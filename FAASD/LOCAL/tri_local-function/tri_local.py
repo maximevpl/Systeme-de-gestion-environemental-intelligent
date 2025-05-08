@@ -133,9 +133,3 @@ def tri(source_folder, intervalle_secondes=30):
 
     print(f"\n{len(data) - len(resultats)} détection(s) supprimée(s).")
 
-
-
-if __name__ == '__main__':
-    tri("~/Bureau/INFO/Etudes Pratiques/TRI")
-    #simplifier_chemins("~/Bureau/INFO/Etudes Pratiques/TRI/detection_list.json")
-    #clean_dir("~/Bureau/INFO/Etudes Pratiques/BACKUP")
