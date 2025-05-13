@@ -22,7 +22,7 @@
 	\section*{Résumé}
 	Le changement climatique accéléré et les activités humaines imposent un suivi plus précis de la faune et de l'environnement. Ce projet vise à développer un système de suivi intelligent capable de détecter automatiquement la présence d'animaux à l'aide d'une caméra. Dans cette étude, nous avons conçu une solution embarquée reposant sur un Raspberry Pi 3 et une caméra Pi, capable de capturer des images sur le terrain. Le traitement des données est effectué localement (Fog Computing) pour minimiser la latence avant d'être envoyé à une plateforme serverless basée sur FaaSd pour un stockage et une analyse plus approfondis.
 	
-	\tableofcontents
+	%\tableofcontents
 	
 	\section{Remerciements}
 	Nous souhaitons adresser nos sincères remerciements à notre encadrant, M. Nikolaos Parlavantzas, pour son accompagnement, son engagement constant et la qualité de ses conseils tout au long de l’année.
@@ -63,7 +63,9 @@
 			
 	\item \textbf{Raspberry Pi 3B et Raspberry Pi Caméra Module 2 :} Le système repose sur un Raspberry Pi modèle 3B couplé au Raspberry Pi Caméra Module 2, permettant de capturer des images en haute définition. Ce matériel est idéal pour le traitement local des données et l’analyse des vidéos, tout en étant peu coûteux et facilement déployable.
 	
-	\item \textbf{FaaSd :} Afin d’implémenter le modèle Function as a Service (FaaS), nous avons opté pour FaaSd, une version optimisée d’OpenFaaS. Cette solution est plus rapide et facile à gérer, car elle fonctionne sur un seul hôte avec des exigences minimales. OpenFaaS, en tant que plateforme de fonctions serverless, permet aux développeur·euses d’exécuter du code en réponse à des événements, sans se soucier de la gestion de l’infrastructure sous-jacente.
+	\item \textbf{Faasd :} Sur le Raspberry Pi, nous avons utilisé \texttt{faasd}, une version légère et simplifiée d’OpenFaaS. Faasd ne nécessite pas de cluster Kubernetes et fonctionne sur un seul hôte, ce qui le rend parfaitement adapté aux environnements contraints comme le Raspberry Pi. Il permet d’exécuter des fonctions serverless localement avec un minimum de ressources, tout en conservant les avantages du modèle FaaS (isolation des fonctions, scalabilité, déploiement simple via Docker).
+	
+	\item \textbf{OpenFaaS :} Sur le serveur distant, nous avons déployé OpenFaaS, une plateforme complète de fonctions serverless. Elle permet d’héberger et d’exécuter les fonctions de traitement plus lourdes, comme le tri des images ou l’analyse statistique, dans un environnement plus puissant et évolutif. Grâce à son API RESTful et sa compatibilité Docker, OpenFaaS facilite le déploiement, la montée en charge et la maintenance des fonctions.
 	
 	\item \textbf{SQLite :} Le système de gestion de base de données SQLite a été choisi pour sa simplicité et son efficacité. Contrairement à InfluxDB, qui est orienté vers les séries temporelles, SQLite offre une solution légère, idéale pour un projet localisé et embarqué. Il permet de gérer les données relatives aux animaux détectés, aux photos et aux événements de manière optimale, tout en étant facile à utiliser avec Python grâce à des bibliothèques dédiées.
 	
@@ -78,16 +80,110 @@
 	Enfin, tout ce travail se déroule dans le Fog Computing, qui agit comme un Cloud local. Le traitement est effectué sur place, à proximité des dispositifs de détection, et les résultats sont ensuite envoyés vers le Cloud, où les informations sont centralisées et mises à la disposition des utilisateurs et utilisatrices.
 
 	\subsection{Structure}
+		\begin{figure}[ht]
+			\centering
+			\includegraphics[scale=0.25]{architecture3.jpg}
+			\caption{Architecture du projet}
+			\label{fig1}
+		\end{figure}
+	L’architecture générale de notre système est illustrée dans la figure ci-dessus. Elle repose sur une séparation claire entre les traitements réalisés localement sur le Raspberry Pi et ceux déportés sur un serveur distant. Cette organisation vise à maximiser les traitements embarqués — notamment la détection de mouvements et l’identification des animaux via le modèle YOLO — afin de réduire au strict nécessaire les transferts de données, coûteux en énergie et en bande passante.
+	
+	L’ensemble des modules a été développé en Python, un langage que nous maîtrisons bien et qui offre un riche écosystème pour le traitement d’image, l’intelligence artificielle et la communication inter-processus. Les interactions entre les différents composants sont orchestrées via le protocole de communication NATS, léger et performant, qui facilite la transmission asynchrone des messages entre les modules locaux et le serveur distant.
+	
+	Ce découplage entre le traitement embarqué (capture, détection, filtrage) et le traitement distant (tri, stockage, analyse) permet une architecture flexible, économe en ressources et facilement évolutive.
+
+
+
 	
 	\section{Fonctionnalités réalisées}
-	
-	\section{Difficultés rencontrées}
+	\begin{enumerate}
+		
+		\item \textbf{Détection de mouvement et capture d'image :}  
+		Cette première fonction s'exécute en continu sur le Raspberry Pi et permet de détecter des mouvements devant la caméra. Elle compare les pixels de deux images successives (prises à l’instant $t$ et $t+1$) et déclenche une capture si la différence dépasse un certain seuil, traduisant un mouvement significatif. L’image capturée est alors enregistrée localement sur le Raspberry Pi. Pour éviter la prise de multiples photos d’un même animal en mouvement, un délai arbitraire de 10 secondes est appliqué avant une nouvelle détection.\\
+		
+		\item \textbf{Pré-traitement de l'image :}  
+		Une seconde fonction utilise le modèle de détection YOLOv8 pour analyser l’image capturée. Les résultats de cette détection sont enregistrés dans un fichier Json contenant, pour chaque objet détecté : le nom de la classe prédite, le nombre d’occurrences, le niveau de confiance du modèle, la date et l’heure de la détection, ainsi que le chemin vers l’image.
+		\begin{figure}[ht]
+			\centering
+			\includegraphics[scale=0.3]{json.png}
+			\caption{Données des détections en format Json}
+			\label{fig2}
+		\end{figure}
+		
+		\item \textbf{Pré-tri et filtrage des données :}  
+		Étant donné les limitations de ressources du Raspberry Pi, nous utilisons un modèle YOLOv8 non ré-entraîné, capable de détecter dix espèces animales courantes. Ce modèle peut également détecter d'autres objets non-animaux. Nous avons toutefois constaté qu’en présence d’un animal non reconnu, YOLOv8 propose malgré tout une prédiction parmi les classes animales connues.  
+		La première tâche de cette fonction est donc de ne conserver que les détections interprétables comme animales, tout en excluant explicitement les détections de personnes humaines (afin de préserver la vie privée). La seconde tâche consiste à éliminer les doublons, en comparant la date de capture et les classes détectées : cela permet de ne pas conserver plusieurs images du même animal prises à quelques secondes d’intervalle.\\
+
+		
+		\item \textbf{Transfert des données :}  
+		Cette fonction gère l'envoi des données collectées depuis le Raspberry Pi vers le serveur distant. Le fichier JSON contenant les informations de détection, ainsi que le dossier des images, sont envoyés via le protocole NATS. L’envoi est déclenché soit à intervalles réguliers (toutes les 24 heures), soit dès qu’un seuil de 10 nouvelles images est atteint.\\
+		
+		\item \textbf{Traitement final :}  
+		Sur le serveur, une nouvelle fonction utilise un modèle YOLO que nous avons ré-entraîné avec un jeu de données spécifique à la faune locale (notamment celle présente sur le site de la Croix Verte). Cette étape vise à affiner la classification et réduire les erreurs. Chaque image transmise est ré-analysée, et les nouvelles données de détection sont enregistrées dans un nouveau fichier Json.
+		\begin{figure}[ht]
+			\centering
+			\includegraphics[scale=0.18]{souris.jpg}
+			\caption{Pré-traitement vs traitement final}
+			\label{fig3}
+		\end{figure}		
+		\item \textbf{Tri final :}  
+		Une deuxième étape de tri est ensuite appliquée. Elle vise à détecter et éliminer d’éventuels doublons restants, mis en évidence par la seconde classification. Comme pour le pré-tri, on compare la date de capture et les classes détectées pour regrouper ou supprimer les images redondantes d’un même animal ayant été interprété différemment.\\
+		
+		\item \textbf{Stockage des données et envoie d'une notification :}  
+		Les données issues du fichier JSON final sont insérées dans une base de données SQLite. Afin de structurer au mieux l’information et de faciliter les requêtes ultérieures, nous avons choisi de répartir les données en deux tables : l’une contenant les informations relatives aux animaux détectés(photo, classe de l'animal, nombre d’animaux de la même classe), l’autre les métadonnées des photos (heure, date, nombre d’animaux). Cette organisation optimise l’interrogation via une interface de consultation dédiée. Une fois la base de données mise à jour, une notification est automatiquement envoyée via un serveur Discord afin d’informer les utilisateurs que de nouvelles données sont disponibles. Cette notification permet un suivi en temps réel de l’activité du système.
+		\begin{figure}[ht]
+			\centering
+			\includegraphics[scale=0.15]{BDD2.jpg}
+			\caption{Tables de la base de données}
+			\label{fig4}
+			
+		\end{figure}
+		\vspace{0.5cm}
+		\begin{figure}[ht]
+			\centering
+			\includegraphics[scale=0.4]{Discord.png}
+			\caption{Réception de la notification Discord}
+			\label{fig5}
+		\end{figure}
+		
+	\end{enumerate}
 	
 	\section{Résultats}
+	Au terme de notre projet, nous avons pu valider l’ensemble des fonctionnalités définies dans notre cahier des charges. Le système développé fonctionne de manière autonome et fiable, avec une séparation claire et efficace entre les traitements réalisés localement sur le Raspberry Pi et ceux déportés sur le serveur distant.
 	
+	L’architecture que nous avons conçue présente l’avantage d’être modulaire et facilement évolutive. Il est ainsi possible d’adapter le système à d’autres contextes ou types d’animaux en ré-entraînant simplement le modèle YOLO utilisé dans la phase de traitement final. Par exemple, en entraînant un modèle spécifique aux espèces d’oiseaux, il devient possible de cibler plus précisément la faune souhaitée sans modifier l’architecture générale du projet.
+	
+	Globalement, notre système a permis de détecter et classifier plusieurs espèces animales avec une précision satisfaisante, tout en assurant une gestion optimisée des ressources embarquées et une bonne capacité d’extension côté serveur. Les tests réalisés ont confirmé la viabilité de notre approche, tant sur le plan technique que fonctionnel.
+
+
+	\section{Difficultés rencontrées}
+	Au cours de la réalisation de notre projet nous avons été confrontés à plusieurs difficultés techniques et organisationnelles.\\
+	
+	L'une des principales difficultés techniques a été la limitation en mémoire vive (RAM) du Raspberry Pi 3, qui ne permettait pas d'utiliser les outils initialement prévus pour la mise en œuvre de notre architecture serverless, notamment OpenFaaS et Kubernetes, tous deux trop gourmands en ressources. Nous avons donc dû nous orienter vers des solutions plus légères, comme FaaSd, mieux adaptées aux contraintes de l’embarqué. Cependant, l’utilisation de FaaSd a soulevé d'autres problèmes : la documentation technique est quasi inexistante et les ressources en ligne sont très limitées. Le manque de ressources a nécessité une optimisation poussée du code, ainsi qu’un arbitrage entre ce qui pouvait être traité en périphérie (Fog computing) et ce qui devait être déporté vers le cloud (FaaS).\\
+	
+	De plus, la caméra Pi utilisée dans notre prototype s’est révélée de faible qualité, avec une résolution limitée et un temps de latence élevé entre chaque prise de vue. Ce qui affecte la précision et la réactivité de notre système de détection.\\
+	
+	Concernant l'organisation du travail, nous avons également rencontré des difficultés pour collaborer à distance sur le Raspberry Pi. Bien que nous ayons mis en place une solution permettant de prendre le contrôle de la machine à distance, cette dernière ne supportait que quatre connexions simultanées, ce qui excluait systématiquement un membre de notre groupe de cinq.\\
+	
+	Nous avons également rencontré des difficultés lors de l'entraînement de notre propre modèle YOLO, dans le but de l’améliorer en le fusionnant avec le modèle préexistant. Malheureusement, cette opération s’est révélée impossible : YOLO ne permet pas de fusionner directement un modèle personnalisé avec un modèle de base. Nous avons donc dû entraîner un modèle complet, en collectant et en annotant des images pour plusieurs espèces animales. Ce processus, particulièrement chronophage, a nécessité des efforts importants pour constituer un jeu de données représentatif et atteindre un niveau de précision acceptable.\\
+	
+	Par ailleurs, l’intégration du modèle de détection YOLO (You Only Look Once) s’est heurtée à une incompatibilité avec FaaSd, la solution Function-as-a-Service que nous avions adoptée par contrainte matérielle. FaaSd ne prend pas en charge la version récente de YOLO que nous utilisions, ce qui a limité nos possibilités d’exploitation du modèle directement dans l’architecture serverless.
+	
+
 	\section{Conclusion}
+	Ce projet nous a permis de concevoir, développer et tester une solution embarquée de détection d’animaux intégrant des technologies modernes et interopérables, telles que YOLO, OpenFaaS/faasd, NATS et SQLite. L’objectif initial – surveiller une zone naturelle de manière automatisée, tout en limitant les ressources utilisées – a été atteint. Par manque de temps et dû a des contraintes d'emploi du temps, nous n'avons malheureusement pas pu intégrer notre solution au projet Mycelium.
 	
-	\section{Glossaire}
+	Nous avons démontré qu’il était possible de combiner des traitements locaux légers (sur Raspberry Pi) avec des traitements plus poussés côté serveur, grâce à une architecture modulaire et découplée. Le recours aux fonctions serverless a permis d’assurer la maintenabilité, la modularité et la simplicité de déploiement du système.
+	
+	L’ensemble du système est aujourd’hui fonctionnel, et son architecture permet de l’étendre à d’autres zones de surveillance ou d’autres types d’analyses (par exemple : détection de comportements, suivi temporel des espèces, analyse statistique de fréquentation). Des pistes d’amélioration peuvent être envisagées, notamment :\\
+	
+	\begin{itemize}
+		\item L'amélioration de la caméra pour avoir des images de meilleures qualités ainsi que l'utilisation d'une caméra infrarouge pour pouvoir faire des détections nocturnes.
+		\item L'optimisation du modèle de détection afin d'être plus précis et de détecter une plus grande diversité d'animaux.
+		\item Le développement d’une interface web plus avancée pour la visualisation des données et des statistiques.\\
+	\end{itemize}
+	
+	En somme, ce projet nous a offert une expérience riche mêlant traitement d’image, intelligence artificielle, développement embarqué, communication distribuée et gestion de base de données. Il ouvre la voie à des applications concrètes dans le domaine de la surveillance environnementale intelligente.
 	
 	\section{Références}
 	
