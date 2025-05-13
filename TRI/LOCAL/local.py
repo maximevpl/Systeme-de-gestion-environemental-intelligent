@@ -65,6 +65,6 @@ def successfull_sending(source):
     clean_dir(os.path.expanduser(source))
 
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
     #fusionner_json("~/Bureau/INFO/Etudes Pratiques/TRI/detection_list.json","~/Bureau/INFO/Etudes Pratiques/TRI/detection_list2.json")
-    sending_failed("~/Bureau/INFO/Etudes Pratiques/BACKUP","~/Bureau/INFO/Etudes Pratiques/TRI")
+    #sending_failed("~/Bureau/INFO/Etudes Pratiques/BACKUP","~/Bureau/INFO/Etudes Pratiques/TRI")

@@ -24,5 +24,5 @@ def modifier_chemin_image(destination, fichier_json):
     print("Chemins modifiés")
 
 
-if __name__ == '__main__':
-    modifier_chemin_image("~/Bureau/INFO/Etudes Pratiques/", "~/Bureau/INFO/Etudes Pratiques/detection_list.json")
+#if __name__ == '__main__':
+    #modifier_chemin_image("~/Bureau/INFO/Etudes Pratiques/", "~/Bureau/INFO/Etudes Pratiques/detection_list.json")
