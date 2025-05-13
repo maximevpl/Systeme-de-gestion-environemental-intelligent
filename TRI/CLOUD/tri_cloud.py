@@ -3,7 +3,7 @@ from datetime import datetime
 import os
 
     
-def tri(fichier_json, intervalle_secondes=30):
+def tri(fichier_json, intervalle_secondes=15):
     '''
     ETAPE 1 : Ouvre la copie du fichier JSON
     ETAPE 2 : Tri les éléments du fichier en fonction de l'heure
@@ -33,7 +33,6 @@ def tri(fichier_json, intervalle_secondes=30):
 
         if animal not in dernieres_heures_par_animal or (heure - dernieres_heures_par_animal[animal]).total_seconds() >= intervalle_secondes:
             resultats.append(item)
-            dernieres_heures_par_animal[animal] = heure
         else : 
             try :
                 image_path = os.path.expanduser(item["image"])
@@ -41,6 +40,7 @@ def tri(fichier_json, intervalle_secondes=30):
                 print(f"Image supprimée : {item["image"]}")
             except Exception as e:
                 print(f"Erreur lors de la suppression de {item["image"]} : {e}")
+        dernieres_heures_par_animal[animal] = heure
         
     # ETAPE 4 - Écriture dans le fichier JSON
     with open(fichier_json, 'w', encoding='utf-8') as f:
@@ -51,6 +51,5 @@ def tri(fichier_json, intervalle_secondes=30):
 
 
 
-if __name__ == '__main__':
-    # tri("/home/inuss/Bureau/INFO/Etudes Pratiques/tri/detection_list2.json", intervalle_secondes=30)
-    tri("~/Bureau/INFO/Etudes Pratiques/tri/BACKUP/detection_list2.json")
+#if __name__ == '__main__':
+    #tri("~/Bureau/INFO/Etudes Pratiques/tri/BACKUP/detection_list2.json")

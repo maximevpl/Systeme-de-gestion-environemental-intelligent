@@ -76,7 +76,7 @@ def modifier_chemin_image(destination, fichier_json):
     print("Chemins modifiés")
 
 
-def tri(source_folder, intervalle_secondes=30):
+def tri(source_folder, intervalle_secondes=15):
     '''
     ETAPE 1 : Crée une copie du dossier contenant les images et le fichier JSON
     ETAPE 2 : Supprime les images du dossier images principal et nettoie le fichier JSON
@@ -87,7 +87,7 @@ def tri(source_folder, intervalle_secondes=30):
         - source_folder : chemin du dossier principal
         - intervalle_secondes : fixé initialement à 30 secondes (pas obligatoire)
     '''
-    animals = ["dog", "cat", "cow", "rat", "fox", "bird"]
+    animals = ["bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe"]
 
     source_folder =  os.path.expanduser(source_folder)
 
@@ -118,7 +118,6 @@ def tri(source_folder, intervalle_secondes=30):
         
         if (derniere_heure is None or (heure - derniere_heure).total_seconds() >= intervalle_secondes) and item["animal"] in animals:
             resultats.append(item)
-            derniere_heure = heure
         else : 
             try :
                 image_path = os.path.expanduser(item["image"])
@@ -126,6 +125,8 @@ def tri(source_folder, intervalle_secondes=30):
                 print(f"Image supprimée : {item["image"]}")
             except Exception as e:
                 print(f"Erreur lors de la suppression de {item["image"]} : {e}")
+        
+        derniere_heure = heure
         
     # ETAPE 6 - Écriture dans le fichier JSON
     with open(fichier_json, 'w', encoding='utf-8') as f:
@@ -135,7 +136,7 @@ def tri(source_folder, intervalle_secondes=30):
 
 
 
-if __name__ == '__main__':
-    tri("~/Bureau/INFO/Etudes Pratiques/TRI")
+#if __name__ == '__main__':
+    #tri("~/Bureau/INFO/Etudes Pratiques/TRI")
     #simplifier_chemins("~/Bureau/INFO/Etudes Pratiques/TRI/detection_list.json")
     #clean_dir("~/Bureau/INFO/Etudes Pratiques/BACKUP")
