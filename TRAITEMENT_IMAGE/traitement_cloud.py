@@ -28,8 +28,6 @@ def modifier_chemin_image(destination, fichier_json):
     print("Chemins modifiés")
 
 
-def traitement_cloud():
-
     # Charger le modèle YOLO enrichi
     model = YOLO("yolov8l.pt")
 
@@ -104,4 +102,3 @@ def traitement_cloud():
 
 if __name__ == '__main__':
     modifier_chemin_image("~/Bureau/INFO/Etudes Pratiques/", "~/Bureau/INFO/Etudes Pratiques/detection_list.json")
-    traitement_cloud()
