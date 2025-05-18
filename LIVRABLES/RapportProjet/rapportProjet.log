@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.14)  13 MAY 2025 19:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.14)  16 MAY 2025 12:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -605,12 +605,12 @@ LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 6
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 ) [3]
-<architecture3.jpg, id=19, 1445.4pt x 813.0375pt>
-File: architecture3.jpg Graphic file (type jpg)
-<use architecture3.jpg>
-Package pdftex.def Info: architecture3.jpg  used on input line 85.
+<architectureFinal.jpg, id=19, 1445.4pt x 813.0375pt>
+File: architectureFinal.jpg Graphic file (type jpg)
+<use architectureFinal.jpg>
+Package pdftex.def Info: architectureFinal.jpg  used on input line 85.
 (pdftex.def)             Requested size: 361.34912pt x 203.25888pt.
- [4 <./architecture3.jpg>]
+ [4 <./architectureFinal.jpg>]
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <10.95> on input line 102.
 
@@ -702,7 +702,7 @@ L3 programming layer <2024-01-22>
  ) 
 Here is how much of TeX's memory you used:
  3483 strings out of 476153
- 57668 string characters out of 5794326
+ 57696 string characters out of 5794326
  1932975 words of memory out of 5000000
  25477 multiletter control sequences out of 15000+600000
  569717 words of font info for 59 fonts, out of 8000000 for 9000
@@ -719,9 +719,9 @@ pelve-maxime/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk>
  </home/le-pelve-maxime/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx
 1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on rapportProjet.pdf (8 pages, 720829 bytes).
+Output written on rapportProjet.pdf (8 pages, 724395 bytes).
 PDF statistics:
- 352 PDF objects out of 1000 (max. 8388607)
+ 350 PDF objects out of 1000 (max. 8388607)
  59 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
