@@ -1,0 +1,19 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://100.78.231.17:8080
+functions:
+  pretri:
+    lang: python3-http-debian
+    handler: ./pretri
+    image: etudepratique/pretri:latest
+    environment:
+      write_timeout: 120s
+      read_timeout: 120s
+      exec_timeout: 120s
+    annotations:
+      topic: cron-function
+      schedule: "0 0 * * *"
+    secrets:
+      - ssh-private-key
+
