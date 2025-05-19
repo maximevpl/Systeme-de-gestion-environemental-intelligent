@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.14)  16 MAY 2025 12:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.14)  19 MAY 2025 18:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -542,6 +542,10 @@ Now handling font encoding U ...
    defining Unicode char U+2423 (decimal 9251)
    defining Unicode char U+FEFF (decimal 65279)
 )))
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count270
@@ -550,22 +554,22 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 (./rapportProjet.aux)
 \openout1 = `rapportProjet.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Info: Redefining \degres on input line 18.
-LaTeX Info: Redefining \up on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Info: Redefining \degres on input line 19.
+LaTeX Info: Redefining \up on input line 19.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -590,139 +594,149 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 21.
+(Font)              <12> on input line 22.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 21.
+(Font)              <8> on input line 22.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 21.
+(Font)              <6> on input line 22.
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 6
-6.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-) [3]
-<architectureFinal.jpg, id=19, 1445.4pt x 813.0375pt>
-File: architectureFinal.jpg Graphic file (type jpg)
-<use architectureFinal.jpg>
-Package pdftex.def Info: architectureFinal.jpg  used on input line 85.
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+<architectureFinale.jpg, id=18, 1445.4pt x 813.0375pt>
+File: architectureFinale.jpg Graphic file (type jpg)
+<use architectureFinale.jpg>
+Package pdftex.def Info: architectureFinale.jpg  used on input line 86.
 (pdftex.def)             Requested size: 361.34912pt x 203.25888pt.
- [4 <./architectureFinal.jpg>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 102.
+(Font)              <10.95> on input line 103.
 
-Underfull \hbox (badness 10000) in paragraph at lines 101--103
+Underfull \hbox (badness 10000) in paragraph at lines 102--104
 
  []
 
-<json.png, id=24, 424.58624pt x 292.09125pt>
+[4 <./architectureFinale.jpg>]
+<json.png, id=23, 424.58624pt x 292.09125pt>
 File: json.png Graphic file (type png)
 <use json.png>
-Package pdftex.def Info: json.png  used on input line 108.
+Package pdftex.def Info: json.png  used on input line 109.
 (pdftex.def)             Requested size: 127.37685pt x 87.62804pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 113--116
+Underfull \hbox (badness 10000) in paragraph at lines 114--117
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--120
+Underfull \hbox (badness 10000) in paragraph at lines 119--121
 
  []
 
-<souris.jpg, id=26, 1685.29625pt x 571.13374pt>
+<souris.jpg, id=25, 1685.29625pt x 571.13374pt>
 File: souris.jpg Graphic file (type jpg)
 <use souris.jpg>
-Package pdftex.def Info: souris.jpg  used on input line 125.
+Package pdftex.def Info: souris.jpg  used on input line 126.
 (pdftex.def)             Requested size: 303.34024pt x 102.79964pt.
 [5 <./json.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 129--131
+Underfull \hbox (badness 10000) in paragraph at lines 130--132
 
  []
 
-<BDD2.jpg, id=33, 1879.02pt x 655.44875pt>
+<BDD2.jpg, id=32, 1890.06125pt x 624.3325pt>
 File: BDD2.jpg Graphic file (type jpg)
 <use BDD2.jpg>
-Package pdftex.def Info: BDD2.jpg  used on input line 136.
-(pdftex.def)             Requested size: 281.84084pt x 98.31306pt.
-<Discord.png, id=34, 636.3775pt x 115.43124pt>
+Package pdftex.def Info: BDD2.jpg  used on input line 137.
+(pdftex.def)             Requested size: 283.49695pt x 93.64583pt.
+<Discord.png, id=33, 636.3775pt x 115.43124pt>
 File: Discord.png Graphic file (type png)
 <use Discord.png>
-Package pdftex.def Info: Discord.png  used on input line 144.
+Package pdftex.def Info: Discord.png  used on input line 145.
 (pdftex.def)             Requested size: 254.5465pt x 46.17168pt.
-[6 <./souris.jpg> <./BDD2.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 160--161
+[6 <./souris.jpg> <./BDD2.jpg> <./Discord.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 161--162
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 162--163
+Underfull \hbox (badness 10000) in paragraph at lines 163--164
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 164--165
+Underfull \hbox (badness 10000) in paragraph at lines 165--166
 
  []
 
 
-Underfull \hbox (badness 1137) in paragraph at lines 166--167
+Underfull \hbox (badness 1137) in paragraph at lines 167--168
 []\T1/cmr/m/n/10.95 Concernant l'or-ga-ni-sa-tion du tra-vail, nous avons éga-l
 e-ment ren-con-tré des
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 166--167
-
- []
-
-[7 <./Discord.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 168--169
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 178--179
+Underfull \hbox (badness 10000) in paragraph at lines 169--170
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 183--184
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
 
-[8] (./rapportProjet.aux)
+(./rapportProjet.bbl
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 9
+.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+Underfull \hbox (badness 1983) in paragraph at lines 17--20
+[]\T1/cmr/m/sc/10.95 Mycelium \T1/cmr/m/n/10.95 :  \T1/cmr/m/it/10.95 INSA Renn
+es\T1/cmr/m/n/10.95 .  $\T1/cmtt/m/n/10.95 https : / / projets-[]info . insa-[]
+rennes . fr /
+ []
+
+
+Underfull \hbox (badness 4699) in paragraph at lines 22--25
+[]\T1/cmr/m/sc/10.95 Faasd \T1/cmr/m/n/10.95 :  \T1/cmr/m/it/10.95 Do-cu-men-ta
+-tion Faasd\T1/cmr/m/n/10.95 .  $\T1/cmtt/m/n/10.95 https : / / openfaas . gumr
+oad . com / l /
+ []
+
+) [8] (./rapportProjet.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3483 strings out of 476153
- 57696 string characters out of 5794326
- 1932975 words of memory out of 5000000
- 25477 multiletter control sequences out of 15000+600000
- 569717 words of font info for 59 fonts, out of 8000000 for 9000
+ 3589 strings out of 476153
+ 59190 string characters out of 5794326
+ 1934975 words of memory out of 5000000
+ 25575 multiletter control sequences out of 15000+600000
+ 570406 words of font info for 60 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  72i,8n,79p,898b,428s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/le-pelve-maxime/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ec
-cc1095.600pk> </home/le-pelve-maxime/.texlive2023/texmf-var/fonts/pk/ljfour/jkn
-appen/ec/ectt1095.600pk> </home/le-pelve-maxime/.texlive2023/texmf-var/fonts/pk
-/ljfour/jknappen/ec/ecbx1095.600pk> </home/le-pelve-maxime/.texlive2023/texmf-v
-ar/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/le-pelve-maxime/.texlive2
-023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/le-pelve-maxim
-e/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/le-
-pelve-maxime/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk>
- </home/le-pelve-maxime/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx
-1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on rapportProjet.pdf (8 pages, 724395 bytes).
+tt1095.600pk> </home/le-pelve-maxime/.texlive2023/texmf-var/fonts/pk/ljfour/jkn
+appen/ec/ecti1095.600pk> </home/le-pelve-maxime/.texlive2023/texmf-var/fonts/pk
+/ljfour/jknappen/ec/eccc1095.600pk> </home/le-pelve-maxime/.texlive2023/texmf-v
+ar/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/le-pelve-maxime/.texlive2
+023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/le-pelve-maxim
+e/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/le-
+pelve-maxime/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk>
+ </home/le-pelve-maxime/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
+1200.600pk> </home/le-pelve-maxime/.texlive2023/texmf-var/fonts/pk/ljfour/jknap
+pen/ec/ecbx1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr10.pfb>
+Output written on rapportProjet.pdf (8 pages, 748950 bytes).
 PDF statistics:
- 350 PDF objects out of 1000 (max. 8388607)
- 59 compressed objects within 1 object stream
+ 443 PDF objects out of 1000 (max. 8388607)
+ 63 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
