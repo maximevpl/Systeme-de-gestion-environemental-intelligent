@@ -81,7 +81,6 @@ def handle(event, context):
 
         print("Chemins modifiés")
 
-
     def tri(source_folder, intervalle_secondes=15):
         '''
         ETAPE 1 : Crée une copie du dossier contenant les images et le fichier JSON
@@ -91,7 +90,7 @@ def handle(event, context):
         ETAPE 5 : Vérifie qu'il n'y a d'entrées du tableau JSON prises dans le même intervalle ou qui ne sont pas des animaux 
         ETAPE 6 : Met à jour le fichier JSON sans les doublons
             - source_folder : chemin du dossier principal
-            - intervalle_secondes : fixé initialement à 30 secondes (pas obligatoire)
+            - intervalle_secondes : fixé initialement à 15 secondes (pas obligatoire)
         '''
         animals = ["bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe"]
 
@@ -118,26 +117,31 @@ def handle(event, context):
         sorted_data= sorted(data, key=lambda x: datetime.strptime(x["heure"], "%Y-%m-%d %H:%M:%S"))
 
         resultats = []
-        derniere_heure  = None
+        images_suppression = []
+        dernieres_heures_par_animal = {}
 
         # ETAPE 5 - Vérification
         for item in sorted_data:
             heure = datetime.strptime(item["heure"], "%Y-%m-%d %H:%M:%S")
+            animal = item["animal"]
             
-            if (derniere_heure is None or (heure - derniere_heure).total_seconds() >= intervalle_secondes) and item["animal"] in animals:
-                resultats.append(item)
-            else : 
-                try :
-                    image_path = os.path.expanduser(item["image"])
-                    os.remove(image_path)  # Supprime l'image
-                    print(f"Image supprimée : {item["image"]}")
-                except Exception as e:
-                    print(f"Erreur lors de la suppression de {item["image"]} : {e}")
+            if not ((animal not in dernieres_heures_par_animal or (heure - dernieres_heures_par_animal[animal]).total_seconds() >= intervalle_secondes) and animal in animals):
+                images_suppression.append(item["image"])
             
-            derniere_heure = heure
+            dernieres_heures_par_animal[animal] = heure
 
-        print("Résultats :", resultats)
+        for item in sorted_data:
+            if item["image"] not in images_suppression:
+                resultats.append(item)
             
+        for img in images_suppression:
+            try :
+                image_path = os.path.expanduser(img)
+                os.remove(image_path)  # Supprime l'image
+                print(f"Image supprimée : {img}")
+            except Exception as e:
+                print(f"Erreur lors de la suppression de {img} : {e}")
+
         # ETAPE 6 - Écriture dans le fichier JSON
         with open(fichier_json, 'w', encoding='utf-8') as f:
             json.dump(resultats, f, indent=4, ensure_ascii=False)

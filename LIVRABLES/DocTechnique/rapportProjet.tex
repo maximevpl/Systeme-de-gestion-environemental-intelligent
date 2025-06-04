@@ -97,7 +97,7 @@
 		Insère les données en base SQLite et envoie une notification Discord.
 	\end{itemize}
 	
-	\subsection{Détails d’implémentation des fonctions principales}
+	\subsection{Détails d’implémentation des fonctions}
 	
 	\subsubsection*{Fonction 1 : Prétraitement YOLOv8}
 	Cette fonction tourne en continue. Elle compare les pixels entre deux instants, si un changement trop important est détecté, une photo est prise, puis le programme attend un certain temps avant de recommencer pour éviter de devoir traiter un trop grand nombre de photos du même animal.
@@ -213,6 +213,43 @@
 		\item Documentation bibliothèque \texttt{discord.py}: \url{https://discordpy.readthedocs.io/en/stable/}
 	\end{itemize}
 	
+	\section{Entraînement de YOLO}
+		\textbf{Prérequis :} Un PC avec une carte graphique NVIDIA compatible CUDA ou utiliser Google Colab\\\\
+		
+		\textbf{Étape 1 : Installer Anaconda}
+		\begin{itemize}
+			\item Téléchargez l'installateur Anaconda pour votre système d'exploitation depuis : \url{https://www.anaconda.com/download}
+			\item Lancez l'installateur et suivez les instructions 
+			\item Une fois l'installation terminée, ouvrez le terminal Anaconda Prompt\\
+		\end{itemize}
+		
+		\textbf{Étape 2 : Créer un environnement Python et installer Ultralytics}
+		\begin{itemize}
+			\item Dans le terminal Anaconda, créez un nouvel environnement Python : \texttt{conda create --name yolo8-env python=3.12 -y}
+			\item Activez l'environnement : \texttt{conda activate yolo8-env}
+			\item Installez la bibliothèque Ultralytics : \texttt{pip install ultralytics}
+			\item Pour utiliser le GPU, installez la version correspondante de PyTorch (assurez-vous que votre GPU est compatible avec CUDA 12.4) : \texttt{pip install --upgrade torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124}\\
+		\end{itemize}
+		
+		\textbf{Étape 3 : Préparer les données}
+		\begin{itemize}
+			\item Collectez des images des objets que vous souhaitez détecter
+			\item Utilisez l'outil d'annotation LabelImg pour étiqueter les objets dans les images : \url{https://github.com/tzutalin/labelImg}
+			\item Organisez vos données dans une structure de dossiers conforme au format YOLO (dossier images, dossier labels et document classes.txt rassemblés dans un même dossier)
+			\item Créez un fichier YAML (par exemple : data.yaml) décrivant votre jeu de données (path, train, val, nc, names)\\
+		\end{itemize}
+		
+		\textbf{Étape 4 : Entraîner le modèle}\\
+		Dans le terminal Anaconda, lancez l'entraînement avec la commande suivante (en adaptant les paramètres selon vos besoins) : \texttt{yolo task=detect mode=train model=yolov8n.pt data=data.yaml epochs=50 imgsz=640 batch=16 name=mon\_modele}\\
+		
+		\textbf{Étape 5 : Tester le modèle}\\
+		Après l'entraînement, vous pouvez tester le modèle sur une image : \texttt{yolo task=detect mode=predict model=mon\_modele/weights/best.pt source=chemin/vers/image.jpg}\\
+
+		\textbf{Documentation :}
+		\begin{itemize}
+			\item Tutoriel :  \url{https://www.ejtech.io/learn/train-yolo-models}
+			\item Documentation Ultralytics : \url{https://docs.ultralytics.com/fr/modes/train/}\\
+		\end{itemize}
 	
 	
 	\section{Conclusion}

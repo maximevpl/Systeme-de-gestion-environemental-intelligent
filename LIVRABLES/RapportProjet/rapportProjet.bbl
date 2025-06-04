@@ -1,15 +1,41 @@
-\begin{thebibliography}{1}
+
+\begin{thebibliography}{}
 \expandafter\ifx\csname fonteauteurs\endcsname\relax
 \def\fonteauteurs{\scshape}\fi
 
-\bibitem{lemoulec:hal-01549042}
-Gwendal \bgroup\fonteauteurs\bgroup Le~Moulec\egroup\egroup{}, Arnaud
-  \bgroup\fonteauteurs\bgroup Blouin\egroup\egroup{}, Valerie
-  \bgroup\fonteauteurs\bgroup Gouranton\egroup\egroup{} et Bruno
-  \bgroup\fonteauteurs\bgroup Arnaldi\egroup\egroup{} :
-\newblock {Automatic Production of End User Documentation for DSLs}.
-\newblock {\em {Computer Languages, Systems and Structures}},
-  54\string:\penalty500\relax 337--357, juillet 2018.
-\newblock Accepted for publication in COMLAN.
+\bibitem{deep}
+\bgroup\fonteauteurs\bgroup DeepFaune\egroup\egroup{}~:
+\newblock {\em DeepFaune}.
+\newblock \url{https://www.deepfaune.cnrs.fr/}.
+
+\bibitem{wild}
+\bgroup\fonteauteurs\bgroup Wildlife Insights\egroup\egroup{}~:
+\newblock {\em wildlifeinsights}.
+\newblock \url{https://www.wildlifeinsights.org/}.
+
+\bibitem{mycelium}
+\bgroup\fonteauteurs\bgroup Mycelium\egroup\egroup{}~:
+\newblock {\em INSA Rennes}.
+\newblock \url{https://projets-info.insa-rennes.fr/projets/2022/Myc%C3%A9lium_2.0/}.
+
+\bibitem{faasd}
+\bgroup\fonteauteurs\bgroup Faasd\egroup\egroup{}~:
+\newblock {\em Documentation Faasd}.
+\newblock \url{https://openfaas.gumroad.com/l/serverless-for-everyone-else}.
+
+\bibitem{sqlite}
+\bgroup\fonteauteurs\bgroup SQLite\egroup\egroup{}~:
+\newblock {\em Documentation SQLite}.
+\newblock \url{https://www.sqlite.org/docs.html}.
+
+\bibitem{yolo}
+\bgroup\fonteauteurs\bgroup YOLO\egroup\egroup{}~:
+\newblock {\em Documentation YOLO}.
+\newblock \url{https://docs.ultralytics.com/fr/}.
+
+\bibitem{docnats}
+\bgroup\fonteauteurs\bgroup NATS.io\egroup\egroup{}~:
+\newblock {\em Documentation NATS}.
+\newblock \url{https://docs.nats.io/}.
 
 \end{thebibliography}

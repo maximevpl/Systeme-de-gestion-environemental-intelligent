@@ -12,4 +12,5 @@
 \contentsline {subsection}{\numberline {3.1}Technologie utilisée}{5}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Accès et exploitation}{6}{subsection.3.2}%
 \contentsline {section}{\numberline {4}Notification Discord}{6}{section.4}%
-\contentsline {section}{\numberline {5}Conclusion}{7}{section.5}%
+\contentsline {section}{\numberline {5}Entraînement de YOLO}{7}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{8}{section.6}%
