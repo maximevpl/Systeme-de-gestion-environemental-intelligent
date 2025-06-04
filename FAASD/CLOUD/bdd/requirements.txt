@@ -1,0 +1,6 @@
+discord.py
+db-sqlite3
+datetime
+python-dotenv
+paramiko
+nats-py

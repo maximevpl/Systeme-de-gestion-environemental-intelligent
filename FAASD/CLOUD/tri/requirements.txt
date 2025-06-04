@@ -1,0 +1,4 @@
+pytest-shutil
+datetime
+paramiko
+nats-py
