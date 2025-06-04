@@ -1,5 +1,5 @@
 # Biolens
-#### Un projet d'étude pratique de 3INFO (by Marc,Iwen,Maxime,Amaury,Mathys)
+#### Un projet d'étude pratique de 3INFO (by Amaury, Iwen, Marc, Mathys, Maxime)
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
@@ -218,19 +218,10 @@ Vous trouverez ici des sources ayant été utile au cours du projet, sans pour a
 | Setup NATS | https://willschenk.com/labnotes/2021/setting_up_services_with_faasd/ |
 
 ## Login utiles
-- [Docker] - login : etudepratique ; passwd : foxinsarennes
-- [Raspberry] - login : fox ; passwd : foxinsarennes
+- [Raspberry] - login : fox ; passwd : foxinsarennes/foxinsa
 
 ## License
 
-INSA Rennes, 3INFO, by Marc, Iwen, Maxime, Amaury, Mathys
+INSA Rennes, 3INFO, by Amaury, Iwen, Marc, Mathys, Maxime
 
 **Free Software, Hell Yeah!**
-
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-
-   [dill]: <https://github.com/joemccann/dillinger>
-   [Tuto faasd sur Raspberry]: <https://blog.alexellis.io/faasd-for-lightweight-serverless/>
-   [Video de déploiement d'une fonction sur faasd]: <https://www.youtube.com/watch?v=AFx0Wap3Z8E&t=3460s>
-   [Doc d'Openfaas]: <https://docs.openfaas.com/>
-
