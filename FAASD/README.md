@@ -59,7 +59,7 @@ Sur le raspberry, connectez vous au client openfaas (faas-cli) en faisant :
 sudo cat /var/lib/faasd/secrets/basic-auth-password | faas-cli login --password-stdin
 ```
 
-### Part 4
+#### Part 4
 > Du fait de l'utilisation de faasd, l'installation de Docker sur le raspberry n'est pas recommandée du tout (possibilité de conflit avec containerd, intégré à faasd). Pour autant, il est nécessaire d'utiliser Docker pour construire une architecture de fonction à partir des templates disponibles. Pour ce faire, nous allons donc devoir utiliser un PC, sur lequel nous créerons la fonction, que nous déploierons par la suite sur le raspberry avec faasd. Cette partie couvre toutes les étapes pour déployer finalement une fonction sur le raspberry
 
 La suite de l'installation va donc se faire sur votre PC : 
@@ -102,7 +102,7 @@ Vérifiez la connexion en faisant `faas-cli version`qui devrait renvoyer une ré
 
 Enfin, placez vous dans le dossier contenant le fichier <nom-de-fonction>.yml, puis faites :
 ```sh
-faas-cli publish -f <nom-de-fonction>.yml --platform linux/arm64,linux/amd64
+faas-cli publish -f <nom-de-fonction>.yml --platforms linux/arm64,linux/amd64
 ```
 Enfin déployer la fonction avec 
 ```sh
@@ -113,6 +113,72 @@ Vous devriez maintenant voir apparaitre votre fonction sur l'interface web de op
 
 
 *Globalement, cette partie reprend ce [Tuto de Alex Ellis][Tuto faasd sur Raspberry] à partir de 34:00*
+
+#### Part 5
+
+Petit point sur les différents chemins utilisés : 
+
+##### Sur le Raspberry :
+
+- `~/biolens/pictures/` : dossier contenant le fichier JSON des détections en cours, et un dossier images contenant les images des détections en cours
+- `~/biolens/detections/`: dossier contenant le script python permettant les détections de mouvement
+Pour lancer ce script, il faut d'abord démarrer l'environnement virtuel en se placant dans le dossier detections et en faisant : 
+```sh
+source motion_env/bin/activate
+```
+puis faites 
+```sh
+python3 motion.py
+```
+- `~/biolens/yolo/`: dossier contenant le script yolo permettant la reconnaissance d'animaux dans les images
+Pour lancer ce script, il faut d'abord démarrer l'environnement virtuel en se placant dans le dossier biolens et en faisant : 
+```sh
+source ultralytics-env/bin/activate
+```
+puis faites 
+```sh
+cd yolo
+```
+```sh
+python3 traitement_image.py
+```
+- `~/biolens/storage/`: dossier contenant temporairement le fichier JSON des détections traitées par la fonction de tri et le dossier image des images prêtes à être envoyé. Ce dossier contient temporairement des données, qui sont soit envoyé par la fonction envoie soit remise dans le dossier pictures si l'envoie échoue
+- `~/biolens/logs/`: dossier contenant le fichier JSON des logs de la fonction envoie.
+
+##### Sur le cloud :
+
+- `~/biolens/yolo/`: dossier contenant le script yolo permettant la reconnaissance d'animaux dans les images
+Pour lancer ce script, il faut d'abord démarrer l'environnement virtuel en se placant dans le dossier yolo et en faisant :  
+```sh
+source env/bin/activate
+```
+puis faites
+```sh
+python3 traitement_cloud.py
+```
+- `~/biolens/data/` : dossier contenant le fichier JSON des détections, et un dossier images contenant les images des détections
+- `~/biolens/bdd/` : dossier contenant le fichier detections.db de la base de donnée, et un dossier images contenant les images des entrées de la base de données
+
+### Part 6
+
+Quelques commandes utiles pour gérer les connexions ssh avec le raspberry et permettre aux fonctions de communiquer via ssh
+
+Créer une clé ssh (sans mot de passe pour simplifier la connexion des fonctions avec le raspberry) :
+```sh
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/faas_key -N ""
+```
+
+Envoyer la clé sur le raspberry : 
+```sh
+ssh-copy-id -i ~/.ssh/faas_key.pub fox@<ip_du_raspberry>
+```
+
+Ajouter la clé à openfaas pour les fonctions :
+```sh
+faas-cli secret create ssh-private-key --from-file ~/.ssh/faas_key
+```
+
+
 
 ## Tech
 
